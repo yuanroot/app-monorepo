@@ -22,12 +22,12 @@ jobs:
         with:
           registry-url: 'https://npm.pkg.github.com'
           always-auth: true
-          scope: '@yuanroot'
+          scope: '@onekeyhq'
           node-version: '16.x'
 
       - name: Dotenv Action
         id: dotenv
-        uses: yuanroot/actions/dotenv-action@main
+        uses: OneKeyHQ/actions/dotenv-action@main
         with:
           path: .env.version
 
@@ -92,7 +92,7 @@ jobs:
           cd packages/web && yarn build && cd ../..
 
       - name: Deploy to CDN
-        uses: yuanroot/actions/s3-upload@main
+        uses: OneKeyHQ/actions/s3-upload@main
         with:
           aws_key_id: ${{ secrets.AWS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -108,7 +108,7 @@ jobs:
             ./packages/web/web-build/
 
       - name: Deploy Github Pages
-        uses: yuanroot/actions/gh-pages@main
+        uses: OneKeyHQ/actions/gh-pages@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./packages/web/web-build
@@ -116,7 +116,7 @@ jobs:
           force_orphan: true
 
       - name: 'Notify to Slack'
-        uses: yuanroot/actions/notice-slack-app-update@main
+        uses: onekeyhq/actions/notice-slack-app-update@main
         with:
           web-hook-url: ${{ secrets.SLACK_DEV_WEBHOOK }}
           artifact-type: WEB

@@ -30,7 +30,7 @@ jobs:
           node-version: 16.x
           registry-url: 'https://npm.pkg.github.com'
           always-auth: true
-          scope: '@yuanroot'
+          scope: '@onekeyhq'
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -81,7 +81,7 @@ jobs:
           node-version: 16.x
           registry-url: 'https://npm.pkg.github.com'
           always-auth: true
-          scope: '@yuanroot'
+          scope: '@onekeyhq'
           
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path

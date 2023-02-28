@@ -22,7 +22,7 @@ jobs:
           node-version: 16.x
           registry-url: 'https://npm.pkg.github.com'
           always-auth: true
-          scope: '@yuanroot'
+          scope: '@onekeyhq'
 
       - name: Setup keys secret
         run: |
@@ -37,7 +37,7 @@ jobs:
           echo ${{ secrets.ADHOC_PROFILE }} | base64 -d > packages/app/ios/certs/profile.mobileprovision
 
       - name: Setup Expo
-        uses: yuanroot/actions/expo-server@main
+        uses: OneKeyHQ/actions/expo-server@main
         with:
           expo-version: 5.x
           eas-version: 3.5.x
@@ -69,12 +69,12 @@ jobs:
 
       - name: Dotenv Action
         id: dotenv
-        uses: yuanroot/actions/dotenv-action@main
+        uses: OneKeyHQ/actions/dotenv-action@main
         with:
           path: .env.version
 
       - name: Modify info.plist
-        uses: yuanroot/actions/build-plist-edit@main
+        uses: OneKeyHQ/actions/build-plist-edit@main
         with:
           buildNumber: ${{ env.BUILD_NUMBER }}
           versionName: ${{ steps.dotenv.outputs.version }}

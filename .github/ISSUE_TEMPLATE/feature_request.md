@@ -18,7 +18,7 @@ A clear and concise description of any alternative solutions or features you've 
 
 **Community & Quick support**
 
-- [Community Forum](https://github.com/orgs/yuanroot/discussions). Best for: help with building, discussion about best practices.
+- [Community Forum](https://github.com/orgs/OneKeyHQ/discussions). Best for: help with building, discussion about best practices.
 - [Discord](https://discord.gg/onekey). Best for: sharing your ideas and hanging out with the community.
 
 **Additional context**

@@ -23,7 +23,7 @@ jobs:
 
       - name: Dotenv Action
         id: dotenv
-        uses: yuanroot/actions/dotenv-action@main
+        uses: OneKeyHQ/actions/dotenv-action@main
         with:
           path: .env.version
 
@@ -64,7 +64,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           registry-url: 'https://npm.pkg.github.com'
           always-auth: true
-          scope: '@yuanroot'
+          scope: '@onekeyhq'
 
       - name: Setup keys secret
         run: |
@@ -183,7 +183,7 @@ jobs:
           xcrun altool --upload-app --f ./packages/desktop/build-electron/mas-universal/*.pkg -t macOS -u $APPLEID -p $APPLEIDPASS --show-progress
 
       - name: 'Notify to Slack'
-        uses: yuanroot/actions/notice-slack-app-update@main
+        uses: onekeyhq/actions/notice-slack-app-update@main
         with:
           web-hook-url: ${{ secrets.SLACK_DEV_WEBHOOK }}
           artifact-type: Desktop
