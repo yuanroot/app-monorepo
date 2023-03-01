@@ -123,8 +123,8 @@ jobs:
           APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
           ASC_PROVIDER: ${{ secrets.ASC_PROVIDER }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
-          CSC_LINK: './sign.p12'
+          # CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+          # CSC_LINK: './sign.p12'
           CSC_IDENTITY_AUTO_DISCOVERY: false
         run: 'cd packages/desktop && yarn build'
 
