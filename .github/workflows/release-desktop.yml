@@ -66,10 +66,11 @@ jobs:
           always-auth: true
           scope: '@onekeyhq'
 
-      # - name: Setup keys secret
-      #   run: |
-      #     rm -rf packages/shared/src/analytics/firebase.web.json
-      #     echo ${{ secrets.GOOGLE_SERVICE_WEB }} | base64 -d > packages/shared/src/analytics/firebase.web.json
+      - name: Setup keys secret
+        run: |
+          rm -rf packages/shared/src/analytics/firebase.web.json
+          echo ${{ secrets.GOOGLE_SERVICE_WEB }} | base64 -d > packages/shared/src/analytics/firebase.web.json
+          cat packages/shared/src/analytics/firebase.web.json
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -83,12 +84,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install Dep
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_OPTIONS: '--max_old_space_size=8192'
-        run: |
-          npm i -g expo-cli@6.0.8 && yarn
+      # - name: Install Dep
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     NODE_OPTIONS: '--max_old_space_size=8192'
+      #   run: |
+      #     npm i -g expo-cli@6.0.8 && yarn
 
       - name: Inject Environment Variables
         env:
@@ -99,6 +100,9 @@ jobs:
           echo "COVALENT_KEY=${{ env.COVALENT_KEY }}" >> .env
           echo "MOONPAY_KEY=${{ env.MOONPAY_KEY }}" >> .env
           echo "GITHUB_SHA=${{ env.GITHUB_SHA }}" >> .env
+          cat .env
+          echo '$GITHUB_OUTPUT='$GITHUB_OUTPUT
+          echo '$GITHUB_ENV='$GITHUB_ENV
 
       # - name: Setup Code Signing file
       #   run: |
@@ -116,17 +120,17 @@ jobs:
       #     CSC_LINK: './sign.p12'
       #   run: 'cd packages/desktop && yarn publish:all'
 
-      - name: Build and Sign Static Linux / Macos / Windows Installer
-        env:
-          NODE_OPTIONS: '--max_old_space_size=8192'
-          APPLEID: ${{ secrets.APPLEID }}
-          APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
-          ASC_PROVIDER: ${{ secrets.ASC_PROVIDER }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
-          # CSC_LINK: './sign.p12'
-          CSC_IDENTITY_AUTO_DISCOVERY: false
-        run: 'cd packages/desktop && yarn build'
+      # - name: Build and Sign Static Linux / Macos / Windows Installer
+      #   env:
+      #     NODE_OPTIONS: '--max_old_space_size=8192'
+      #     APPLEID: ${{ secrets.APPLEID }}
+      #     APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
+      #     ASC_PROVIDER: ${{ secrets.ASC_PROVIDER }}
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     # CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+      #     # CSC_LINK: './sign.p12'
+      #     CSC_IDENTITY_AUTO_DISCOVERY: false
+      #   run: 'cd packages/desktop && yarn build'
 
       # - name: Upload Artifacts Mac
       #   uses: actions/upload-artifact@v3
@@ -135,12 +139,12 @@ jobs:
       #     path: |
       #       ./packages/desktop/build-electron/*.dmg
 
-      - name: Upload Artifacts Windows
-        uses: actions/upload-artifact@v3
-        with:
-          name: onekey-desktop-windows
-          path: |
-            ./packages/desktop/build-electron/*.exe
+      # - name: Upload Artifacts Windows
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: onekey-desktop-windows
+      #     path: |
+      #       ./packages/desktop/build-electron/*.exe
 
       # - name: Upload Artifacts Linux
       #   uses: actions/upload-artifact@v3
