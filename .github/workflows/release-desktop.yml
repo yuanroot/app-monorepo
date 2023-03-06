@@ -58,31 +58,30 @@ jobs:
           github_ref: ${{ github.ref }}
           workflow_run_number: ${{ github.event.workflow_run.run_number}}
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          registry-url: 'https://npm.pkg.github.com'
-          always-auth: true
-          scope: '@onekeyhq'
+      # - name: Setup Node
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: ${{ matrix.node-version }}
+      #     registry-url: 'https://npm.pkg.github.com'
+      #     always-auth: true
+      #     scope: '@onekeyhq'
 
-      - name: Setup keys secret
-        run: |
-          rm -rf packages/shared/src/analytics/firebase.web.json
-          echo ${{ secrets.GOOGLE_SERVICE_WEB }} | base64 -d > packages/shared/src/analytics/firebase.web.json
-          cat packages/shared/src/analytics/firebase.web.json
+      # - name: Setup keys secret
+      #   run: |
+      #     rm -rf packages/shared/src/analytics/firebase.web.json
+      #     echo ${{ secrets.GOOGLE_SERVICE_WEB }} | base64 -d > packages/shared/src/analytics/firebase.web.json
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+      # - name: Get yarn cache directory path
+      #   id: yarn-cache-dir-path
+      #   run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
 
-      - uses: actions/cache@v3
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+      # - uses: actions/cache@v3
+      #   id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+      #   with:
+      #     path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+      #     key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-yarn-
 
       # - name: Install Dep
       #   env:
@@ -91,18 +90,15 @@ jobs:
       #   run: |
       #     npm i -g expo-cli@6.0.8 && yarn
 
-      - name: Inject Environment Variables
-        env:
-          COVALENT_KEY: ${{ secrets.COVALENT_KEY }}
-          MOONPAY_KEY: ${{ secrets.MOONPAY_KEY }}
-          GITHUB_SHA: ${{ github.sha }}
-        run: |
-          echo "COVALENT_KEY=${{ env.COVALENT_KEY }}" >> .env
-          echo "MOONPAY_KEY=${{ env.MOONPAY_KEY }}" >> .env
-          echo "GITHUB_SHA=${{ env.GITHUB_SHA }}" >> .env
-          cat .env
-          echo '$GITHUB_OUTPUT='$GITHUB_OUTPUT
-          echo '$GITHUB_ENV='$GITHUB_ENV
+      # - name: Inject Environment Variables
+      #   env:
+      #     COVALENT_KEY: ${{ secrets.COVALENT_KEY }}
+      #     MOONPAY_KEY: ${{ secrets.MOONPAY_KEY }}
+      #     GITHUB_SHA: ${{ github.sha }}
+      #   run: |
+      #     echo "COVALENT_KEY=${{ env.COVALENT_KEY }}" >> .env
+      #     echo "MOONPAY_KEY=${{ env.MOONPAY_KEY }}" >> .env
+      #     echo "GITHUB_SHA=${{ env.GITHUB_SHA }}" >> .env
 
       # - name: Setup Code Signing file
       #   run: |
@@ -127,9 +123,8 @@ jobs:
       #     APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
       #     ASC_PROVIDER: ${{ secrets.ASC_PROVIDER }}
       #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     # CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
-      #     # CSC_LINK: './sign.p12'
-      #     CSC_IDENTITY_AUTO_DISCOVERY: false
+      #     CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+      #     CSC_LINK: './sign.p12'
       #   run: 'cd packages/desktop && yarn build'
 
       # - name: Upload Artifacts Mac
